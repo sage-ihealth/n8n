@@ -1,6 +1,6 @@
 # =============================================================================
 # iHealth Labs — n8n CI/CD
-# Triggers: push to master → build → push to Docker Hub ihealthlab/n8n
+# Triggers: push to master → build → push to Docker Hub ihealthlabs/n8n
 # =============================================================================
 name: Build & Push Docker Image
 
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE: ihealthlab/n8n
+  IMAGE: ihealthlabs/n8n
   REGISTRY: docker.io
 
 jobs:
@@ -73,14 +73,14 @@ jobs:
             -H "Content-Type: application/json" \
             "https://argocd-sunnyvale.ihealth-eng.com/api/v1/applications/n8n-sage-dev/sync" \
             -d '{"revision": "HEAD"}' || true
-          echo "Deployed: ihealthlab/n8n:${IMAGE_TAG}"
+          echo "Deployed: ihealthlabs/n8n:${IMAGE_TAG}"
 
       - name: Summary
         run: |
           echo "## ✅ Build Complete" >> $GITHUB_STEP_SUMMARY
           echo "| | |" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|" >> $GITHUB_STEP_SUMMARY
-          echo "| **Image** | \`ihealthlab/n8n:${{ steps.meta.outputs.tag }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Image** | \`ihealthlabs/n8n:${{ steps.meta.outputs.tag }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Version** | \`${{ steps.meta.outputs.version }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **SHA** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **URL** | https://n8n-sage.ihealth-eng.com |" >> $GITHUB_STEP_SUMMARY
