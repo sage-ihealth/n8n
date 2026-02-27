@@ -9,6 +9,14 @@ trigger:
     - push
 
 steps:
+  - name: debug
+    image: alpine
+    commands:
+      - echo "Pipeline running OK"
+      - echo "Commit: $DRONE_COMMIT_SHA"
+      - id
+      - ls /drone/src/
+
   - name: build-push
     image: plugins/docker
     pull: if-not-exists
@@ -23,3 +31,4 @@ steps:
       password:
         from_secret: DOCKERHUB_PASSWORD
       dockerfile: Dockerfile.ihealth
+      debug: true
