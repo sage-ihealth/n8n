@@ -1,0 +1,8 @@
+# iHealth Labs custom n8n image
+# Extends the official n8n image — add iHealth-specific packages/nodes below
+FROM n8nio/n8n:latest
+
+USER root
+# Add customizations here, e.g.:
+# RUN npm install -g n8n-nodes-ihealth
+USER node

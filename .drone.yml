@@ -1,0 +1,25 @@
+kind: pipeline
+type: kubernetes
+name: build-and-push
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+steps:
+  - name: build-push
+    image: plugins/docker
+    pull: if-not-exists
+    privileged: true
+    settings:
+      repo: ihealthlabs/n8n
+      tags:
+        - latest
+        - ${DRONE_COMMIT_SHA:0:8}
+      username:
+        from_secret: DOCKERHUB_USERNAME
+      password:
+        from_secret: DOCKERHUB_PASSWORD
+      dockerfile: Dockerfile.ihealth
